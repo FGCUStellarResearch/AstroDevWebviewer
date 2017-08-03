@@ -1,0 +1,59 @@
+
+var spec =  {
+  "$schema": "https://vega.github.io/schema/vega/v3.0.json",
+  "width": 1000,
+  "height": 700,
+  "padding": 5,
+  "autosize": "fit",
+
+  "signals": [
+    {
+      "name": "interpolate",
+      "value": "linear",
+      "bind": {
+        "input": "select",
+        "options": [
+          "basis",
+          "cardinal",
+          "catmull-rom",
+          "linear",
+          "monotone",
+          "natural",
+          "step",
+          "step-after",
+          "step-before"
+        ]
+      }
+    }
+  ],
+
+  "data": [
+    {
+      "name": "timeseries",
+      "url": "/tmp/tryit.csv",
+      "format": {"type": "csv", "parse": {"time":"number", "raw":"number", "detrended":"number", "back":"number", "xcent":"number", "ycent":"number" }}
+    }
+  ],
+
+  "scales": [
+    {
+      "name": "time",
+      "type": "point",
+      "range": "width",
+      "domain": {"data": "timeseries", "field": "time"}
+    },
+    {
+      "name": "detrended",
+      "type": "linear",
+      "range": "height",
+      "domain": {"data": "timeseries", "field": "detrended"}
+    },
+  ],
+
+  "axes": [
+    {"orient": "bottom", "scale": "time"},
+    {"orient": "left", "scale": "detrended"}
+  ],
+
+  
+}
